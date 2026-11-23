@@ -101,6 +101,13 @@ avatar:
   img: /assets/avatar.jpg
   effect: false
 
+# 导航栏左上角头像（2026-11-23 新增）
+# 显示在站点名左边、点击回首页；图片直接复用上面的 avatar.img
+# 样式在 source/css/site-inject.css 的「导航栏左上角头像」段：34px 圆形，手机端 28px
+nav_avatar:
+  enable: true
+  home_only: true # true：只在首页显示（其它页保持干净的标题栏）；false：全站每页都显示
+
 # Disable all banner image
 disable_top_img: false
 

@@ -1,5 +1,12 @@
 nav#nav
   span#blog_name
+    //- 左上角头像（2026-11-23，站点级开关见 _config.fomalhaut.yml → nav_avatar）
+    //- 头像直接取 theme.avatar.img，和侧栏、关于页共用同一张图，换头像只改一处
+    if theme.nav_avatar && theme.nav_avatar.enable
+      if !theme.nav_avatar.home_only || is_home()
+        a#nav-avatar(href=url_for('/') title='回到首页' aria-label='回到首页')
+          //- no-lazyload：首屏元素，交给主题的懒加载过滤器原样保留 src（见 scripts/filters/post_lazyload.js）
+          img.no-lazyload(src=url_for(theme.avatar.img) alt=config.author)
     a#site-name(href=url_for('/')) #[=config.title]
     
   #menus

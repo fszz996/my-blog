@@ -29,7 +29,10 @@ else
   - var isHomeClass = 'not-top-img'
 
 header#page-header(class=isHomeClass style=bg_img)
-  !=partial('includes/header/nav', {}, {cache: true})
+  //- 2026-11-23 关掉这里的 partial 缓存：Hexo 的 partial cache 只按路径做键，
+  //- 会拿「第一个渲染到的页面」（实测是 404）的 locals 复用给全站，
+  //- 导致 nav 里的 is_home() 永远为 false（左上角头像的「只首页显示」就永远不生效）。
+  !=partial('includes/header/nav', {}, {cache: false})
   if top_img !== false
     if is_post()
       include ./post-info.pug
