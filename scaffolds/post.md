@@ -1,23 +1,27 @@
 ---
 title: {{ title }}
 date: {{ date }}
-# 一句话摘要：会显示在首页卡片、搜索结果和 SEO 描述里，写清楚这篇解决什么问题
 description: 
-# 分类只留一个（首页分类磁贴按它统计）：CTF / 学习笔记 / 折腾记录 / 生活随记
-categories:
-  - 学习笔记
-# 标签 1~4 个，方便把相关系列串起来
-tags:
-  - 
-# 封面：留空用主题默认图；也可以写 /assets/gallery/aurora-teal.jpg 或外链
+categories: []
+tags: []
 cover: 
-# 只有需要排公式时才改成 true（否则会白白加载一份 MathJax）
 mathjax: false
-# 文章加密（hexo-blog-encrypt）：需要时取消注释，密码别写进 git
-# password: 
 ---
 
-<!-- 正文从这里开始。写的过程中可以 `hexo server` 预览：http://localhost:4000 -->
+<!--
+  写之前先看三行：
+  1. categories / tags 写成 YAML 列表，比如
+         categories:
+           - CTF
+         tags:
+           - Web
+           - SQL注入
+     可选分类：CTF / 学习笔记 / 折腾记录 / 生活随记（首页磁贴按分类统计，只写一个就好）
+  2. cover 留空会用主题默认封面；也可以写 /assets/gallery/aurora-teal.jpg 或一个外链
+  3. 要排数学公式时才把 mathjax 改成 true（否则会多加载一份 MathJax）
+  另外：第一次构建时 hexo-abbrlink 会自动往文件头写一行 abbrlink，那行的值就是这篇文章的永久链接
+       （/posts/<abbrlink>.html）。别手改它，也别删，删了下次构建会按标题重新算，旧链接就失效了。
+-->
 
 ## 背景
 
