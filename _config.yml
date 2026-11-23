@@ -18,9 +18,11 @@ abbrlink:
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-# TODO(brush)：域名还没定，先留占位。定下来后改这一行（会影响 sitemap / og:url / 友链回填地址），
-#              并同步改下面 baidu_url_submit.host（友人帐页已删，站点信息只在本文件与关于页维护）。
-url: https://example.com/
+# 2026-11-23：先部署到 GitHub Pages 项目站（临时地址）。
+# 注意 url 带 /my-blog/ 子路径时，Hexo 会自动把 root 推导成 /my-blog/，
+# 所以本地预览地址也变成 http://localhost:4000/my-blog/（不再是裸的 4000/）。
+# 备案域名下来后：改这一行 + robots.txt 的 sitemap 即可切走，源码不用动。
+url: https://fszz996.github.io/my-blog/
 permalink: posts/:abbrlink.html
 permalink_defaults:
 pretty_urls:
@@ -215,7 +217,7 @@ baidusitemap:
 # 主动推送百度，被百度收录
 baidu_url_submit:
   count: 10 # 提交最新的10个链接
-  host: https://example.com # TODO(brush)：换成百度站长平台里注册的域名
+  host: https://fszz996.github.io/my-blog # 与上面的 url 保持一致（换域名时一起改）
   token: YOUR_BAIDU_TOKEN # TODO(brush)：百度站长平台 > 推送接口 > 接口调用地址里的 token
   path: baidu_urls.txt # 文本文档的地址， 新链接会保存在此文本文档里，不用改
 

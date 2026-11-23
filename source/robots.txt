@@ -2,6 +2,6 @@
 User-agent: *
 Allow: /
 
-# TODO(brush)：域名定下来后把下面两行的 example.com 换成自己的域名（与 _config.yml 的 url 一致）
-Sitemap: https://example.com/sitemap.xml
-Sitemap: https://example.com/baidusitemap.xml
+# 2026-11-23：地址换成 GitHub Pages 项目站；备案域名下来后与 _config.yml 的 url 一起改
+Sitemap: https://fszz996.github.io/my-blog/sitemap.xml
+Sitemap: https://fszz996.github.io/my-blog/baidusitemap.xml

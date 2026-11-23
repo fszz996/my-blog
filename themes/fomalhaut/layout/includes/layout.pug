@@ -7,22 +7,27 @@
 doctype html
 html(lang=config.language data-theme=theme.display_mode class=htmlClassHideAside)
   //- 注册Service Worker（本地开发环境自动注销：SW 拦截请求失败会让整片资源加载不出来）
-  script.
-    if ('serviceWorker' in navigator) {
-      var isLocalDev = ['localhost', '127.0.0.1', '0.0.0.0'].indexOf(location.hostname) !== -1
-      if (isLocalDev) {
-        navigator.serviceWorker.getRegistrations().then(function (rs) {
-          rs.forEach(function (r) { r.unregister() })
-        })
-      } else {
-        navigator.serviceWorker.register('/sw.js').then(function () {
-          if (localStorage.getItem('install') !== 'true') {
-            localStorage.setItem('install', 'true')
-            location.reload()
-          }
-        })
-      }
-    }
+  //- 2026-11-23 停用：这套 sw.js 是为「同一份产物推多线路 + 对象存储回源」设计的，
+  //-   里面的 TARGET_HOSTS / S3_ORIGIN 还是 example.com 占位；现在站点只挂单线路静态托管，
+  //-   留着注册只会带来两类麻烦：① 子路径部署时 /sw.js 404；② 缓存策略让改版后访客继续看旧页面。
+  //- 想启用：把下面 script 块的注释去掉，并先把 themes/fomalhaut/source/sw.js 里的
+  //-   TARGET_HOSTS 改成自己的域名、S3_ORIGIN 改成真实桶（或删掉回源那段）。
+  //- script.
+  //-   if ('serviceWorker' in navigator) {
+  //-     var isLocalDev = ['localhost', '127.0.0.1', '0.0.0.0'].indexOf(location.hostname) !== -1
+  //-     if (isLocalDev) {
+  //-       navigator.serviceWorker.getRegistrations().then(function (rs) {
+  //-         rs.forEach(function (r) { r.unregister() })
+  //-       })
+  //-     } else {
+  //-       navigator.serviceWorker.register('/sw.js').then(function () {
+  //-         if (localStorage.getItem('install') !== 'true') {
+  //-           localStorage.setItem('install', 'true')
+  //-           location.reload()
+  //-         }
+  //-       })
+  //-     }
+  //-   }
 
   //- 禁用f12
   //- script.
