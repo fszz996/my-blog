@@ -8,18 +8,9 @@ menu:
     归档: /archives/ || icon-guidang1 || faa-tada
     分类: /categories/ || icon-fenlei || faa-tada
     标签: /tags/ || icon-biaoqian || faa-tada
-    随便逛逛: javascript:randomPost(); || icon-zuji1 || faa-tada
-  收藏 || icon-xiangzi || faa-tada || hide:
-    画廊: /box/gallery/ || icon-tubiaozhizuomoban || faa-tada
-    网址导航: /box/nav/ || icon-zhifengche || faa-tada
-    八音盒: /life/music/ || icon-yinle || faa-tada
-    天文馆: /box/astronomy/ || icon-wangyuanjing || faa-tada
   关于 || icon-paperplane || faa-tada || hide:
     关于我: /personal/about/ || icon-paperplane || faa-tada
     留言板: /comments/ || icon-liuyan || faa-tada
-    友人帐: /social/link/ || icon-lianjie || faa-tada
-    网站统计: /site/census/ || icon--tongjibiao || faa-tada
-    旧时光: /site/time/ || icon-xianxingshalou || faa-tada
 
 # Code Blocks (代碼相關)
 # --------------------------------------
@@ -1230,21 +1221,6 @@ inject:
     # 换成从 --theme-color 派生；电脑端作者卡与手机抽屉头像共用同一套动画。
     # 回滚：删掉这一行即可（备份 bak/20261007-avatar-glow/before/_config.fomalhaut.yml）
     - <link rel="stylesheet" href="/css/avatar-glow.css?v=20261004q">
-    # ── 「旧时光」/site/time/ 时间轴改版（站点独立样式 + 脚本，不改主题源码）──────────
-    # source/css/timeline-archive.css 负责外观：年份分组（大号年份 + 细线 + 条数）、
-    # 左侧日期轨 + 右侧卡片、卡片左侧主题色装饰条、有序列表序号改成圆角小方块、
-    # 最新一条右上角挂一枚胶囊；配色全部由 --theme-color / --font-color / --card-bg 派生，
-    # 主题色和明暗模式跟着变，不写死颜色。
-    # source/js/timeline-archive.js 负责结构：拆日期 → 挂 id → 插年份分隔器 → 造头部锚点；
-    # 头部＝起止日期 · 历时天数（约 X 年 Y 个月）· 更新天数（日期卡数）· 记录条数（正文条目数）· 年份数；
-    # 年份胶囊只写「N 条」，底部细条＝该年条数占全部条数的比例（悬停有完整提示）。
-    # 只读主题渲染好的 DOM，不新增任何网络请求。
-    # 只在 /site/time/ 生效：两层守卫（#article-container 里只有这一条 timeline + 条目数 ≥ 8），
-    # CSS 选择器又全部带 .tl-ready（JS 确认通过后才加），任一环节缺失就整块失效、退回主题原样。
-    # 改 css/js 记得把下面两个 ?v= 一起提版本。回滚：删掉下面两行即可
-    # （配置备份 bak/20261009-timeline-archive/before/_config.fomalhaut.yml）。
-    - <link rel="stylesheet" href="/css/timeline-archive.css?v=20261011d">
-    - <script defer src="/js/timeline-archive.js?v=20261011b"></script>
     # ── 关于页样式（站点独立样式，不改主题源码）──────────────────────────────
     # source/css/about-page.css：/personal/about/ 专用外观，全部选择器以 .ab2 开头；
     #   2026-11-23 页面已从「六线部署演示」改写为个人介绍，现在实际用到的是
@@ -1314,9 +1290,11 @@ inject:
     - <script defer src="/js/inject/archive-page.js?v=20261018-scrollfix"></script>
 
   bottom:
-    - <script defer charset="UTF-8" id="LA_COLLECT" src="https://sdk.51.la/js-sdk-pro.min.js"></script> # 51la统计（+defer 解除阻塞）
-    - <script defer src="https://sdk.51.la/perf/js-sdk-perf.min.js" crossorigin="anonymous"></script> # 灵雀监控（+defer 解除阻塞）
-    - <script defer src="/js/51la.js"></script> # 统计
+    # 2026-11-23 移除 51LA / 灵雀监控 三行：id 一直是占位符（source/js/51la.js 里 YOUR_51LA_ID），
+    # 统计页也已删除，留着只是每页多拉两个外部 SDK。要接回：恢复下面三行并填好 id/ck。
+    # - <script defer charset="UTF-8" id="LA_COLLECT" src="https://sdk.51.la/js-sdk-pro.min.js"></script>
+    # - <script defer src="https://sdk.51.la/perf/js-sdk-perf.min.js" crossorigin="anonymous"></script>
+    # - <script defer src="/js/51la.js"></script>
     - <script src="https://registry.npmmirror.com/jquery/3.6.0/files/dist/jquery.min.js"></script> # jQuery
     - <script>window.jQuery || document.write('<script src="/js/jquery.min.js"><\/script>')</script> # jQuery 本地兜底（CDN 失效时不至于让 fomal.js 整个中断）
     # - <script async src="https://registry.npmmirror.com/vue/2.6.14/files/dist/vue.min.js"></script> # VUE（92KB，15 处 $notify 已由 /js/notify.js 承担，故移除）
@@ -1356,12 +1334,12 @@ inject:
     - <script defer src="/js/festival.js"></script> # 节日提醒卡片（左上角通知）
     - <script defer src="/js/author-status.js"></script> # 侧栏头像状态胶囊：按时间/节假日自动切换（放假/上班/下班/睡觉）
     - <script defer src="/js/stats.js?v=20261005"></script> # 文章统计页（/tags/）：emoji 标题拆成分节头 + 三张 echarts 跟随主题色/明暗模式
-    - <script defer src="/js/footer-music.js?v=20261005"></script> # 页脚「猜你想看」右下空位补一条「听点音乐」→ /life/music/（八音盒）
+    # 2026-11-23 移除 footer-music.js：它给页脚补的「听点音乐」指向八音盒 /life/music/，该页已删
+    # 2026-11-23 移除 ft-ad-extra.js：它靠复制「广告位招租」项补位，页脚改版后已无此项，脚本空转
     - <script defer src="/js/pjax-guard.js?v=20261005"></script> # 修 pjax 选择器不匹配：/tags/ 图表容器 id 导致换页退回整页刷新 + 加载遮罩一直转圈
     - <script defer src="/js/inject/search-lazy.js?v=20261011b"></script> # Algolia 搜索按需加载：空闲预取 + 点开才执行（省 88KB 压缩流量 / 277KB 解析，见 source/js/inject/search-lazy.js）
     - <script src="/js/inject/scroll-gap-fix.js?v=20261011"></script> # 锚点跳转补偿：常驻顶栏留 70px
     - <script src="/js/inject/webinfo-card.js"></script> # 小站资讯卡：KPI 数字滚动 + 运行天数
-    - <script src="/js/inject/ft-ad-extra.js"></script> # 页脚友链补一个「广告位招租」
     - <script src="/js/inject/pc-local-link.js"></script> # 版权卡「文章链接」显示当前域名
     # 2026-11-23 移除 about-route-probe.js：关于页已重写为个人介绍，不再有 .ab2 线路卡，
     # 脚本每次都会在 collect() 处空跑 return。文件保留，需要时再加回本行。

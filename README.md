@@ -3,6 +3,11 @@
 > 一套「克隆即用」的 Hexo 卡片式博客源码。主题基于 [Butterfly 4.3.1](https://butterfly.js.org/) 深度二次开发，
 > 并把**站点配置**与**主题代码**彻底分开：改配置就能搭起自己的站，升级主题不会冲掉你自己的改动。
 
+> **本站说明（2026-11-23）**：这个仓库现在跑的是 brush 的个人站，不是主题的演示站。
+> 按站点需要，画廊 / 网址导航 / 八音盒 / 天文馆 / 友人帐 / 朋友圈 / 网站统计 / 旧时光 这些演示页已从 `source/` 删除，
+> 导航也精简成「首页 / 文章 / 关于」三组。下文（尤其「功能怎么配」「文件地图」两节）仍按主题全量能力写，
+> 提到的页面在本仓库里可能已不存在 —— 想恢复某个页面，从 git 历史里取回对应 `source/` 目录即可。
+
 ![hexo](https://img.shields.io/badge/Hexo-6.3.0-0e83c?style=flat-square&logo=hexo)
 ![node](https://img.shields.io/badge/Node.js-18%20%7C%2020%20%7C%2022-339933?style=flat-square&logo=nodedotjs)
 ![theme](https://img.shields.io/badge/Theme-Fomalhaut%20v1.0.5-6513df?style=flat-square)

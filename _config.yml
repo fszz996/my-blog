@@ -19,7 +19,7 @@ abbrlink:
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
 # TODO(brush)：域名还没定，先留占位。定下来后改这一行（会影响 sitemap / og:url / 友链回填地址），
-#              并同步改下面 baidu_url_submit.host 与 source/social/link/index.md 的「本站信息」。
+#              并同步改下面 baidu_url_submit.host（友人帐页已删，站点信息只在本文件与关于页维护）。
 url: https://example.com/
 permalink: posts/:abbrlink.html
 permalink_defaults:
@@ -39,7 +39,6 @@ i18n_dir: :lang
 skip_render:
   - 'js/tag-map/*' # leaflet / proj4 第三方库原文件，原样复制，不做 Nunjucks 渲染
   - 'js/ai-chat.js' # AI 助手前端本体（含大段 CSS/JS 字面量），原样复制，不做 Nunjucks 渲染
-  - 'box/astronomy/voyager.html' # 旅行者号交互星图，是完整独立页面（自带样式与脚本），由 index.md 用 iframe 引入，原样复制
 
 # Writing
 new_post_name: :year-:month-:day-:title.md # File name of new posts
@@ -231,7 +230,7 @@ nofollow:
 gitcalendar:
   enable: false # 开关（2026-11-22 暂关：apiurl 还是占位地址，配好数据源后再开）
   priority: 5 #过滤器优先权
-  enable_page: /site/census/ # 应用页面
+  enable_page: / # 应用页面（原为 /site/census/，统计页已删，改挂首页；本项整体关闭中）
   # butterfly挂载容器
   layout: # 挂载容器类型
     type: id

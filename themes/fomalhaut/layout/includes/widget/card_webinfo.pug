@@ -9,7 +9,7 @@
 if theme.aside.card_webinfo.enable
   -
     var __classic = theme.aside.card_webinfo.classic
-    var __nPosts = 0, __links = 0
+    var __nPosts = 0, __links = 0, __cats = 0
     var __wNum = 0, __wordsText = '0', __avg = 0, __writeDays = 0
     var __sinceRun = 0, __sinceWrite = 0, __runISO = '', __lastPostISO = ''
     var __buildISO = '', __buildDate = ''
@@ -35,10 +35,8 @@ if theme.aside.card_webinfo.enable
         }
       }
       __nPosts = site.posts.length
-      var __lg = site.data.link || []
-      for (var __j = 0; __j < __lg.length; __j++) {
-        __links += ((__lg[__j] && __lg[__j].link_list) || []).length
-      }
+      // 2026-11-23：友人帐已删，第三格 KPI 由「友链数」改成「分类数」（链接到 /categories/）
+      __cats = site.categories.length
       __wordsText = String(totalcount(site))
       __wNum = __num(__wordsText)
       __avg = (__nPosts && __wNum) ? Math.round(__wNum / __nPosts) : 0
@@ -108,9 +106,9 @@ if theme.aside.card_webinfo.enable
           .wi-kpi-item
             .wi-kpi-num(data-countup=__avg data-format="k")= __fmt(__avg)
             .wi-kpi-label 篇均字
-          a.wi-kpi-item(href=url_for('/social/link/'))
-            .wi-kpi-num(data-countup=__links)= __links
-            .wi-kpi-label 友链
+          a.wi-kpi-item(href=url_for('/categories/'))
+            .wi-kpi-num(data-countup=__cats)= __cats
+            .wi-kpi-label 分类
         .wi-time
           span.wi-time-item
             span.wi-time-k 已运行
