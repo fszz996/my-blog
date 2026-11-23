@@ -126,7 +126,11 @@ html(lang=config.language data-theme=theme.display_mode class=htmlClassHideAside
     else
       include ./404.pug
 
-    include ./rightside.pug
+    //- 2026-11-23 移除右侧悬浮按钮组（设置齿轮 / 分享 / 返回顶部 / 直达底部）。
+    //- 需要恢复：把下面这行改回 include ./rightside.pug 即可；
+    //- 注意同时要处理 pjax.pug 里对 #rightside 的直接取用（已加空值保护）与
+    //- reading.js 的阅读进度（它对 #go-up 缺失已有 return）。
+    //- include ./rightside.pug
     !=partial('includes/third-party/search/index', {}, {cache: true})
     !=partial('includes/rightmenu',{}, {cache:true})
     include ./additional-js.pug

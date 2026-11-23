@@ -5,10 +5,13 @@ const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
 const source = fs.readFileSync(path.resolve(__dirname, '../../source/js/modules/cursor.js'), 'utf8');
-const catSource = source.slice(source.indexOf('/* ------------------------------ 小猫咪'), source.indexOf('/* 小猫咪 end */'));
+// 2026-11-23：猫咪改成可关（nekoScroll 的 showCat 选项），生产默认 showCat:false，只留滚动条。
+// catSourceShipping 是真实产物（不建猫咪）；catSource 把开关掰回 true，用来继续覆盖猫咪分支。
+const catSourceShipping = source.slice(source.indexOf('/* ------------------------------ 小猫咪'), source.indexOf('/* 小猫咪 end */'));
+const catSource = catSourceShipping.replace('showCat: false', 'showCat: true');
 const cursorSource = source.slice(source.indexOf('var CURSOR;'));
 
-function setup({ cats = true, cursors = true, scroll = 1000, saved = {} } = {}) {
+function setup({ cats = true, cursors = true, catSwitch = 'on', scroll = 1000, saved = {} } = {}) {
   const trace = [], frames = new Map(), intervals = [], observers = [], resizeObservers = [];
   const activeIntervals = new Map(), clearedIntervals = [], storageWrites = [];
   let nextFrame = 0, styleReads = 0, rectReads = 0, heightReads = 0, queries = 0, hitReads = 0;
@@ -173,7 +176,7 @@ function setup({ cats = true, cursors = true, scroll = 1000, saved = {} } = {}) 
     clearInterval: id => { clearedIntervals.push(id); activeIntervals.delete(id); }, MutationObserver, ResizeObserver,
     btf: { scrollToDest: () => { window.scrollY = 0; } } });
   window.btf = ctx.btf;
-  if (cats) vm.runInContext(catSource, ctx);
+  if (cats) vm.runInContext(catSwitch === 'off' ? catSourceShipping : catSource, ctx);
   if (cursors) vm.runInContext(cursorSource, ctx);
   const tick = () => { const pending = [...frames.values()]; frames.clear(); for (const callback of pending) callback(); };
   const settle = () => { for (let i = 0; frames.size && i < 200; i++) tick(); assert.equal(frames.size, 0, 'Animation must settle'); };
@@ -1013,4 +1016,19 @@ test('repeated effect toggles retain single nodes, once-bound listeners and at m
   assert.equal(countNodes(e, el => el.id === 'cursor'), 1);
   assert.equal(countNodes(e, el => el.tagName === 'STYLE'), 1);
   assert.deepEqual(e.storageWrites, []);
+});
+
+test('默认配置不创建猫咪：滚动条高度仍跟随滚动更新（毛玻璃条不走 JS 宽度）', () => {
+  // 2026-11-23 起 nekoScroll 以 showCat:false 调用：只保留滚动条本体。
+  // 这条用例锁住「默认产物里没有 .neko」，并确认滚动条高度逻辑没被连带删掉。
+  const e = setup({ cats: true, cursors: false, catSwitch: 'off', scroll: 0 });
+  assert.equal(e.cat(), null, '默认不应创建 .neko 元素');
+
+  e.height(3000);
+  e.window.scrollY = 400;
+  e.window.emit('scroll');
+  e.settle();
+
+  // ViewH=1000、DocH=3000、ScrollTop=400 → Band_H=20%，zoom=0.9 → 高度 180px
+  assert.equal(e.rope.style.height, '180px', '滚动条高度应按滚动比例更新');
 });

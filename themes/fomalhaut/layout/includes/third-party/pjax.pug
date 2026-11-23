@@ -36,7 +36,9 @@ script.
     })
 
     typeof preloader === 'object' && preloader.initLoading()
-    document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+    // 2026-11-23：右侧按钮组已移除，#rightside 可能不存在，这里加空值保护避免换页报错
+    var __rs = document.getElementById('rightside')
+    if (__rs) __rs.style.cssText = "opacity: ''; transform: ''"
     
     if (window.aplayers) {
       for (let i = 0; i < window.aplayers.length; i++) {

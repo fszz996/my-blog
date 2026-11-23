@@ -18,23 +18,23 @@ nav#nav
     #nav-right
       if (theme.algolia_search.enable || theme.local_search.enable)
         #search-button
-          //- a.site-page.social-icon.search
-          //-   i.fas.fa-search.fa-fw
+          //- 2026-11-23：换成极简线性放大镜（原来是 iconfont 的实心图标）
           a.search.faa-parent.animated-hover(title="检索站内任何你想要的信息")
-            svg.faa-tada.icon(style="height:24px;width:24px;fill:currentColor;position:relative;top:6px" aria-hidden="true")
-              use(xlink:href='#icon-sousuo')
-            span=' '+_p('search.title')    
+            svg.search-ico(aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round")
+              circle(cx="11" cy="11" r="6.5")
+              line(x1="16" y1="16" x2="21" y2="21")
+            span=' '+_p('search.title')
 
-      //- 美化设置
-      a.meihua.faa-parent.animated-hover(onclick="toggleWinbox()" title="美化设置-自定义你的风格" id="meihua-button")
-        svg.faa-tada.icon(style="height:26px;width:26px;fill:currentColor;position:relative;top:8px" aria-hidden="true")
-          use(xlink:href='#icon-huahua')
+      //- 2026-11-23 移除：美化设置（#meihua-button）与暗黑模式（#nightmode-button）两个按钮。
+      //- 页面仍会按 daynight-boot.js 的规则自动日夜切换，只是不再提供手动入口。
+      //- 想恢复：把下面这段注释解开即可。
+      //- a.meihua.faa-parent.animated-hover(onclick="toggleWinbox()" title="美化设置-自定义你的风格" id="meihua-button")
+      //-   svg.faa-tada.icon(style="height:26px;width:26px;fill:currentColor;position:relative;top:8px" aria-hidden="true")
+      //-     use(xlink:href='#icon-huahua')
+      //- a.sun_moon.faa-parent.animated-hover(onclick='switchNightMode()',  title=_p('rightside.night_mode_title') id="nightmode-button")
+      //-   svg.faa-tada(style="height:25px;width:25px;fill:currentColor;position:relative;top:7px", viewBox='0 0 1024 1024')
+      //-     use#modeicon(xlink:href='#icon-moon')
 
-      //- 暗黑模式按钮
-      a.sun_moon.faa-parent.animated-hover(onclick='switchNightMode()',  title=_p('rightside.night_mode_title') id="nightmode-button")
-        svg.faa-tada(style="height:25px;width:25px;fill:currentColor;position:relative;top:7px", viewBox='0 0 1024 1024')
-          use#modeicon(xlink:href='#icon-moon')        
-        
       #toggle-menu
         a
           i.fas.fa-bars.fa-fw

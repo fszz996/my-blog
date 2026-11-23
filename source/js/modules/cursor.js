@@ -112,12 +112,13 @@ if (document.body.clientWidth > 992) {
   function nekoFlush() {
     nekoState.raf = null;
     if (!nekoEnabled || document.hidden) return;
+    // 2026-11-23：猫咪可以关掉（showCat:false），此时只更新滚动条本体
     var cat = nekoElement(), setting = nekoState.setting;
-    if (!cat || !setting) return;
+    if (!setting) return;
     // 读阶段：mousemove 不重读 scrollHeight，也不每次重读猫咪矩形。
     var info = nekoState.geometryDirty || !nekoState.info ? getBasicInfo() : nekoState.info;
     var rect = nekoState.rect;
-    if (nekoState.rectDirty && cat.style.display === 'block') {
+    if (cat && nekoState.rectDirty && cat.style.display === 'block') {
       var measured = cat.getBoundingClientRect();
       rect = { left: measured.left, right: measured.right, top: measured.top, bottom: measured.bottom };
       nekoState.rectDirty = false;
@@ -133,17 +134,19 @@ if (document.body.clientWidth > 992) {
     var hover = !!(visible && rect && p && p.x >= rect.left && p.x <= rect.right && p.y >= rect.top && p.y <= rect.bottom);
     // 写阶段：静态样式只在插件初始化时写，滚动仅更新高度、位置和状态。
     nekoStyle(nekoState.rope, 'height', height + 'px');
-    nekoStyle(cat, 'top', top + 'px');
-    show(info);
-    nekoClass(cat, 'showMsg', visible && info.S_V > 0 && info.ScrollTop >= info.S_V - 1);
-    nekoClass(cat, 'hoverOn', hover);
-    if (hover) nekoClockTick();
+    if (cat) {
+      nekoStyle(cat, 'top', top + 'px');
+      show(info);
+      nekoClass(cat, 'showMsg', visible && info.S_V > 0 && info.ScrollTop >= info.S_V - 1);
+      nekoClass(cat, 'hoverOn', hover);
+      if (hover) nekoClockTick();
+    }
     nekoState.info = info;
     nekoState.top = top;
     nekoState.rect = visible ? rect : null;
     nekoState.geometryDirty = false;
     // 从 display:none 恢复后的真实 CSS 矩形在下一帧读，避免强制同步布局。
-    if (visible && !rect) nekoQueue(false, true);
+    if (cat && visible && !rect) nekoQueue(false, true);
   }
   setNekoEnabled(nekoEnabled);
   document.addEventListener('mousemove', function (e) { nekoHoverTick(e.clientX, e.clientY); });
@@ -181,39 +184,43 @@ if (document.body.clientWidth > 992) {
   (function ($) {
     $.fn.nekoScroll = function (option) {
       var setting = $.extend({ top: '0', scroWidth: '6px', z_index: 9999, zoom: 0.9,
-        borderRadius: '5px', right: '55.6px',
+        borderRadius: '5px', right: '55.6px', showCat: true,
         nekoImg: 'https://bu.dusays.com/2022/07/20/62d812db74be9.png' }, option);
       if (!this.length) return this;
-      var cat = nekoElement();
-      if (!cat) {
+      // 2026-11-23：showCat:false 时只保留滚动条，不再创建/驱动小猫咪
+      var showCat = setting.showCat !== false;
+      var cat = showCat ? nekoElement() : null;
+      if (showCat && !cat) {
         cat = document.createElement('div');
         cat.className = 'neko';
         if (setting.nekoname) cat.id = setting.nekoname;
         cat.setAttribute('data-msg', nekoTimeMsg());
         this.after(cat);
       }
-      nekoState.cat = cat;
+      nekoState.cat = showCat ? cat : null;
       nekoState.rope = this[0];
       nekoState.setting = setting;
       nekoState.styles = new WeakMap();
-      nekoState.top = Number.isFinite(parseFloat(cat.style.top)) ? parseFloat(cat.style.top) : null;
+      nekoState.top = (cat && Number.isFinite(parseFloat(cat.style.top))) ? parseFloat(cat.style.top) : null;
       nekoState.rect = null;
       this.css({ position: 'fixed', width: setting.scroWidth, top: setting.top,
         'z-index': setting.z_index, 'background-color': setting.bgcolor,
         'border-radius': setting.borderRadius, right: setting.right,
         'background-image': '-webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.1) 75%, transparent 75%, transparent)',
         'background-size': 'contain' });
-      $(cat).css({ position: 'fixed', 'z-index': setting.z_index * 10,
-        right: setting.right, 'background-image': 'url(' + setting.nekoImg + ')' });
+      if (showCat && cat) {
+        $(cat).css({ position: 'fixed', 'z-index': setting.z_index * 10,
+          right: setting.right, 'background-image': 'url(' + setting.nekoImg + ')' });
+        $(cat).off('click.nekoScroll').on('click.nekoScroll', nekoToTop);
+        if (!nekoEnabled) nekoStyle(cat, 'display', 'none');
+      }
       this.off('click.nekoScroll').on('click.nekoScroll', nekoToTop);
-      $(cat).off('click.nekoScroll').on('click.nekoScroll', nekoToTop);
-      if (!nekoEnabled) nekoStyle(cat, 'display', 'none');
       nekoQueue(true, true);
       return this;
     };
   })(jQuery);
   $(document).ready(function () {
-    $('#myscoll').nekoScroll({ bgcolor: 'rgb(0 0 0 / .5)', borderRadius: '2em', zoom: 0.9 });
+    $('#myscoll').nekoScroll({ bgcolor: 'rgb(0 0 0 / .5)', borderRadius: '2em', zoom: 0.9, showCat: false });
     nekoClockTick();
   });
   document.addEventListener('pjax:complete', function () {
