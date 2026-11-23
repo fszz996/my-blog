@@ -1312,10 +1312,10 @@ inject:
     - <script defer src="/js/notify.js"></script> # 轻量通知，替代 Vue + Element-UI
     - <script defer src="/js/lunar.js"></script> # 农历 / 二十四节气换算（festival.js 依赖，必须排在它前面）
     # ↓↓↓ 站点自有 JS：2026-10-03 把原来近 3000 行的 /js/fomal.js 拆成了下面这些文件。
-    # 加载顺序 = 依赖顺序：data/ 是两个纯数据模型（页脚计时器要用），modules/ 各自独立，
+    # 加载顺序 = 依赖顺序：data/ 是纯数据模型，modules/ 各自独立，
     # 最后才是 fomal.js 主引导（里面有一份模块地图 + 全局入口清单，改站点 JS 前先看它）。
-    - <script defer src="/js/data/voyager1.js"></script> # 旅行者1号距离模型（页脚计时器依赖）
-    - <script defer src="/js/data/holidays.js"></script> # 法定休息日判断（页脚计时器依赖）
+    # 2026-11-23 移除 data/voyager1.js、data/holidays.js 与 modules/footer-time.js：
+    #   页脚「本站运行了…／旅行者 1 号距离地球…」那行已删，这三个文件不再有人用。
     - <script defer src="/js/modules/console-art.js"></script> # 控制台字符画
     - <script defer src="/js/modules/shell.js?v=20261011-stage3"></script> # 快捷键拦截/夜间动画/恶搞标题/搜索框修复/手机滚动条
     - <script defer src="/js/modules/snow.js?v=20261010-snow1"></script> # 自然雪片与底部薄积雪
@@ -1323,7 +1323,6 @@ inject:
     - <script defer src="/js/modules/reading.js?v=20261015-fps2"></script> # 阅读进度条/FPS
     - <script defer src="/js/modules/nav.js?v=20261005-scroll1"></script> # 导航栏标题/首屏欢迎语/随便逛逛/分享
     - <script defer src="/js/modules/cursor.js?v=20261015-fps2"></script> # 小猫咪/右键菜单/听话鼠标
-    - <script defer src="/js/modules/footer-time.js?v=20261006"></script> # 页脚计时器
     - <script defer src="/js/modules/appearance-fonts.js?v=20261010-preview1"></script> # 字体共用预览与加载保护
     - <script defer src="/js/modules/appearance-backgrounds.js?v=20261011-bgflash1"></script> # 背景图库/预览与加载保护
     - <script defer src="/js/modules/fireflies.js?v=20261010-fireflies1"></script> # 萤火虫微光（默认关闭，低密度）

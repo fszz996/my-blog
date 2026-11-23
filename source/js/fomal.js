@@ -7,8 +7,6 @@
  *   具体功能都在 modules/ 和 data/ 里，改功能请去对应文件，别往这里堆代码。
  *
  * 【模块地图】（都在 _config.fomalhaut.yml 的 inject.bottom 里按顺序加载）
- *   /js/data/voyager1.js        旅行者1号距离模型（JPL Horizons 离线拟合，纯计算）
- *   /js/data/holidays.js        法定休息日判断（2024~2026 内置 + 2027 起 CDN 拉取）
  *   /js/modules/console-art.js  控制台字符画
  *   /js/modules/shell.js        快捷键拦截 / 夜间模式动画 / 恶搞标题 / 搜索框修复 / 手机滚动条
  *   /js/modules/effects.js      雪花 / 星空 / 表情放大
@@ -16,8 +14,8 @@
  *   /js/modules/nav.js          导航栏标题 / 首屏欢迎语 / 随便逛逛 / 分享按钮
  *   /js/modules/cursor.js       小猫咪 / 右键菜单 / 听话鼠标
  *   /js/modules/ripple.js       点击涟漪（第 4 个互动挂件，默认关闭，跟随主题色）
- *   /js/modules/footer-time.js  页脚计时器（依赖上面两个 data/ 文件）
  *   /js/modules/settings.js     美化模块：右下角齿轮设置面板（最大的一块，约 1200 行）
+ *   （2026-11-23 删除：data/voyager1.js、data/holidays.js、modules/footer-time.js —— 页脚计时器随整块页脚内容一起下线）
  *   另有 /js/lunar.js、/js/festival.js、/js/notify.js、/js/stats.js 等更早就拆出去的同级文件。
  *
  * 【为什么模块里都不套 IIFE】
@@ -80,10 +78,7 @@ window.__fomal = {
     "nav.js": ["showWelcome", "randomPost", "share"],
     "cursor.js": ["popupMenu", "CURSOR"],
     "ripple.js": ["FOMAL_RIPPLE"],
-    "footer-time.js": ["createtime"],
-    "settings.js": ["createWinbox", "winboxNeedSize"],
-    "voyager1.js": ["vgDist"],
-    "holidays.js": ["isRestDay"]
+    "settings.js": ["createWinbox", "winboxNeedSize"]
   },
   // 返回一个报告：missing 非空就说明有文件没加载或函数被改名了
   check: function () {

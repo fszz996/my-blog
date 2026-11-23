@@ -1,47 +1,4 @@
 #footer-wrap
-  #ft
-    .ft-item-1
-      .t-top
-        .t-t-l
-          p.ft-t.t-l-t 格言🧬
-          .bg-ad
-            div
-              | 再看看那个光点，它就在这里，这是家园，这是我们 —— 你所爱的每一个人，你认识的每一个人，你听说过的每一个人，曾经有过的每一个人，都在它上面度过他们的一生✨
-            .btn-xz-box
-              a.btn-xz(href='/personal/about/') 认识一下站长
-        .t-t-r
-          p.ft-t.t-l-t 猜你想看💡
-          ul.ft-links
-            li
-              a(href='/archives/') 文章归档
-              a(href='/categories/') 文章分类
-            li
-              a(href='/tags/') 文章标签
-              a(href='/personal/about/') 关于作者
-            li
-              a(href='/comments/') 留点什么
-              a(href='/') 回到首页
-    .ft-item-2
-      p.ft-t 推荐友链⌛
-      //- 展示位：本站头像 + 几个上游项目，图片都是本地生成的占位图（source/assets/friends/），
-      //- 换成朋友的头像时直接替换同名文件即可（建议 100x100 以内）。
-      .ft-img-group
-        .img-group-item
-          a(href='/' title='本站')
-            img(src='/assets/avatar.jpg' alt='')
-        .img-group-item
-          a(href='https://hexo.io/zh-cn/' title='Hexo')
-            img(src='/assets/friends/hexo.png' alt='')
-        .img-group-item
-          a(href='https://butterfly.js.org/' title='Butterfly')
-            img(src='/assets/friends/butterfly.png' alt='')
-        .img-group-item
-          a(href='https://busuanzi.ibruce.info/' title='不蒜子')
-            img(src='/assets/friends/frontier.png' alt='')
-        .img-group-item
-          a(href='/comments/' title='想出现在这儿？来留言交换友链')
-            img(src='/assets/friends/slot.png' alt='')
-
   if theme.footer.owner.enable
     - var now = new Date()
     - var nowYear = now.getFullYear()
@@ -68,7 +25,6 @@
       a(href='https://github.com/jerryc127/hexo-theme-butterfly')= 'Butterfly'
   if theme.footer.custom_text
     .footer_custom_text!=`${theme.footer.custom_text}`
-  #workboard
   p#ghbdages
     a.github-badge(target='_blank' href="https://hexo.io/" style='margin-inline:5px' title="博客框架为Hexo_v6.3.0")
       img(src="https://img.shields.io/badge/Frame-Hexo-blue.svg" alt='')
