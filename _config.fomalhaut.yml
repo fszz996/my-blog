@@ -106,7 +106,7 @@ avatar:
 # 样式在 source/css/site-inject.css 的「导航栏左上角头像」段：34px 圆形，手机端 28px
 nav_avatar:
   enable: true
-  home_only: true # true：只在首页显示（其它页保持干净的标题栏）；false：全站每页都显示
+  home_only: false # false：全站每页都显示（当前）；true：只在首页显示，其它页保持干净的标题栏
 
 # Disable all banner image
 disable_top_img: false
