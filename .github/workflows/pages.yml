@@ -13,7 +13,6 @@ permissions:
   contents: read
   pages: write
   id-token: write
-  issues: write   # 临时诊断用：安装失败时把 npm 日志贴到 issue（拿到原因后删掉这几行与下面的诊断步骤）
 
 # 同一时间只跑一个部署；新的推送会取消排队中的旧任务
 concurrency:
@@ -35,35 +34,15 @@ jobs:
 
       # ① lock 里 1300+ 个包的下载地址是国内的 registry.npmmirror.com（本地装依赖时留下的），
       #    境外 runner 从它拉包会大面积超时 → 先换回官方 registry（只换主机名，版本与 integrity 不动）
-      # ② --ignore-scripts：依赖里 ttf2woff2 是原生模块，装的时候要编译/下二进制，runner 上常失败；
+      # ② 用 install 而不是 ci：这个 lock 是 2022 年用老版 npm 生成的（lockfileVersion 2），
+      #    npm 10 的 `ci` 会因「锁文件缺 chokidar@3 等条目」直接 EUSAGE 拒绝安装，
+      #    而 `install` 会在锁文件基础上补齐缺项。改回 ci 之前先跑一次 `npm install` 提交新锁文件。
+      # ③ --ignore-scripts：依赖里 ttf2woff2 是原生模块，装的时候要编译/下二进制，runner 上常失败；
       #    它只被 gulp 的字体子集化用到，`hexo generate` 这条链全是纯 JS，不需要原生模块
       - name: 安装依赖
-        id: deps
-        continue-on-error: true
         run: |
           node tools/normalize-lock-registry.cjs
-          set -o pipefail
-          npm ci --ignore-scripts --no-audit --no-fund --registry=https://registry.npmjs.org --fetch-retries=5 --fetch-timeout=120000 2>&1 | tee /tmp/npm.log
-
-      # 临时诊断步骤：CI 日志接口需要鉴权，这里把失败日志贴成 issue（公开可读）
-      - name: 诊断：安装失败时贴日志
-        if: steps.deps.outcome == 'failure'
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const fs = require('fs');
-            let log = '';
-            try { log = fs.readFileSync('/tmp/npm.log', 'utf8'); } catch (e) { log = '读不到日志: ' + e.message; }
-            await github.rest.issues.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              title: 'CI 安装依赖失败日志（临时）',
-              body: '```\n' + log.slice(-6000) + '\n```'
-            });
-
-      - name: 依赖安装失败则中断
-        if: steps.deps.outcome == 'failure'
-        run: exit 1
+          npm install --ignore-scripts --no-audit --no-fund --registry=https://registry.npmjs.org --fetch-retries=5 --fetch-timeout=120000
 
       - name: 构建站点
         run: npx hexo clean && npx hexo generate
