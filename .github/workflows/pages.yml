@@ -32,10 +32,12 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
-      # package-lock.json 已提交，用 ci 保证依赖与锁文件一致；
-      # 以后手动升级依赖导致锁文件不同步时，换成 npm install
+      # 说明：--ignore-scripts 是必须的。
+      # 依赖里 ttf2woff2 是原生模块，安装时会跑 install 脚本去编译/下载二进制，
+      # 在 GitHub 的 Ubuntu runner 上经常失败；而它只被 gulp 的字体子集化任务用到，
+      # `hexo generate` 这条链（hexo + 渲染器 + 插件）全是纯 JS，不需要任何原生模块。
       - name: 安装依赖
-        run: npm ci
+        run: npm ci --ignore-scripts --no-audit --no-fund
 
       - name: 构建站点
         run: npx hexo clean && npx hexo generate
