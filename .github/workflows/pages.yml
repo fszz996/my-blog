@@ -13,6 +13,7 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  issues: write   # 临时诊断用：安装失败时把 npm 日志贴到 issue（拿到原因后删掉这几行与下面的诊断步骤）
 
 # 同一时间只跑一个部署；新的推送会取消排队中的旧任务
 concurrency:
@@ -37,9 +38,32 @@ jobs:
       # ② --ignore-scripts：依赖里 ttf2woff2 是原生模块，装的时候要编译/下二进制，runner 上常失败；
       #    它只被 gulp 的字体子集化用到，`hexo generate` 这条链全是纯 JS，不需要原生模块
       - name: 安装依赖
+        id: deps
+        continue-on-error: true
         run: |
           node tools/normalize-lock-registry.cjs
-          npm ci --ignore-scripts --no-audit --no-fund --registry=https://registry.npmjs.org --fetch-retries=5 --fetch-timeout=120000
+          set -o pipefail
+          npm ci --ignore-scripts --no-audit --no-fund --registry=https://registry.npmjs.org --fetch-retries=5 --fetch-timeout=120000 2>&1 | tee /tmp/npm.log
+
+      # 临时诊断步骤：CI 日志接口需要鉴权，这里把失败日志贴成 issue（公开可读）
+      - name: 诊断：安装失败时贴日志
+        if: steps.deps.outcome == 'failure'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let log = '';
+            try { log = fs.readFileSync('/tmp/npm.log', 'utf8'); } catch (e) { log = '读不到日志: ' + e.message; }
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'CI 安装依赖失败日志（临时）',
+              body: '```\n' + log.slice(-6000) + '\n```'
+            });
+
+      - name: 依赖安装失败则中断
+        if: steps.deps.outcome == 'failure'
+        run: exit 1
 
       - name: 构建站点
         run: npx hexo clean && npx hexo generate
