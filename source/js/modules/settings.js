@@ -747,15 +747,15 @@ function bgValToUrl(s) {
 }
 // 更换背景(自己的代码)
 restoreAppearanceBackground();
-// 默认背景
+// 默认背景（2026-11-23 换成站点自己生成的本地壁纸，与 _config.fomalhaut.yml 的 #defineBg 兜底保持一致）
 function resetBg_() {
   var el = document.getElementById("defineBg");
   if (!el) return;
   el.innerText = `:root{
-    --default-bg: url(https://picsum.photos/id/1015/1920/1080);
-    --darkmode-bg:url(https://picsum.photos/id/1044/1920/1080);
-    --mobileday-bg: url(https://picsum.photos/id/1018/1920/1080);
-    --mobilenight-bg: url(https://picsum.photos/id/1039/1920/1080);
+    --default-bg: url(/assets/gallery/soft-mesh-light.jpg);
+    --darkmode-bg:url(/assets/gallery/deep-blue.jpg);
+    --mobileday-bg: url(/assets/gallery/mint-fog.jpg);
+    --mobilenight-bg: url(/assets/gallery/starfield.jpg);
   }`;
 }
 

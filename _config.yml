@@ -3,11 +3,11 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Demo
+title: brush's blog
 subtitle:
-description: "一个基于 Hexo + Fomalhaut 主题的演示站点"
-keywords: "Hexo,Butterfly,Fomalhaut,博客,主题,卡片式UI"
-author: Demo
+description: "brush 的个人博客，记录 CTF 和学习过程"
+keywords: "brush,博客,CTF,网络安全,学习记录"
+author: brush
 language: zh-CN
 timezone: ""
 
@@ -18,6 +18,8 @@ abbrlink:
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
+# TODO(brush)：域名还没定，先留占位。定下来后改这一行（会影响 sitemap / og:url / 友链回填地址），
+#              并同步改下面 baidu_url_submit.host 与 source/social/link/index.md 的「本站信息」。
 url: https://example.com/
 permalink: posts/:abbrlink.html
 permalink_defaults:
@@ -134,9 +136,11 @@ theme: fomalhaut
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   - type: git
-    repository: https://github.com/yourname/yourname.github.io.git # 这个Github仓库用自动部署即可
+    # TODO(brush)：换成自己的仓库。用 GitHub Pages 用户站一般是 https://github.com/<用户名>/<用户名>.github.io.git
+    repository: https://github.com/fszz996/my-blog.git
     branch: main
-  - type: baidu_url_submitter
+  # 百度主动推送：配好下面 baidu_url_submit 的 host / token 后再打开这一行，否则每次部署都会报错
+  # - type: baidu_url_submitter
   # - type: git
   #   #repo改为repo: git@域名:/var/repo/hexo.git
   #   repo: git@127.0.0.1:/var/repo/hexo.git
@@ -149,21 +153,24 @@ deploy:
 #   indexName: your_index_name
 
 # hexo-algoliasearch(可以匹配内容)
-algolia:
-  appId: "YOUR_ALGOLIA_APP_ID"
-  apiKey: "YOUR_ALGOLIA_SEARCH_KEY"
-  adminApiKey: "YOUR_ALGOLIA_ADMIN_KEY"
-  chunkSize: 5000
-  indexName: "your_index_name"
-  fields:
-    - content:strip:truncate,0,30000
-    - excerpt:strip
-    - gallery
-    - permalink
-    - photos
-    - slug
-    - tags
-    - title
+# 2026-11-23 停用：站点搜索已改为本地搜索（hexo-generator-search），不需要 Algolia 账号与密钥。
+# 下面整段与文件末尾 plugins 里的 hexo-algoliasearch 一起注释掉了；
+# 想换回 Algolia：取消两处注释、填好三个 Key，再把 _config.fomalhaut.yml 的 algolia_search.enable 改 true。
+# algolia:
+#   appId: "YOUR_ALGOLIA_APP_ID"
+#   apiKey: "YOUR_ALGOLIA_SEARCH_KEY"
+#   adminApiKey: "YOUR_ALGOLIA_ADMIN_KEY"
+#   chunkSize: 5000
+#   indexName: "your_index_name"
+#   fields:
+#     - content:strip:truncate,0,30000
+#     - excerpt:strip
+#     - gallery
+#     - permalink
+#     - photos
+#     - slug
+#     - tags
+#     - title
 
 # 首页轮播图
 # hexo-butterfly-swiper
@@ -209,8 +216,8 @@ baidusitemap:
 # 主动推送百度，被百度收录
 baidu_url_submit:
   count: 10 # 提交最新的10个链接
-  host: https://example.com # 百度站长平台中注册的域名
-  token: YOUR_BAIDU_TOKEN # 秘钥，百度站长平台 > 推送接口 > 接口调用地址中token字段
+  host: https://example.com # TODO(brush)：换成百度站长平台里注册的域名
+  token: YOUR_BAIDU_TOKEN # TODO(brush)：百度站长平台 > 推送接口 > 接口调用地址里的 token
   path: baidu_urls.txt # 文本文档的地址， 新链接会保存在此文本文档里，不用改
 
 nofollow:
@@ -222,7 +229,7 @@ nofollow:
 # hexo-filter-gitcalendar
 # see https://akilar.top/posts/1f9c68c9/
 gitcalendar:
-  enable: true # 开关
+  enable: false # 开关（2026-11-22 暂关：apiurl 还是占位地址，配好数据源后再开）
   priority: 5 #过滤器优先权
   enable_page: /site/census/ # 应用页面
   # butterfly挂载容器
@@ -268,38 +275,34 @@ gitcalendar:
   gitcalendar_js: /js/gitcalendar.js #自托管 + 已打「失败也摘转圈」补丁
 
 # 新版的搜索插件
-plugins:
-  - hexo-algoliasearch
+# 2026-11-23 停用 Algolia（见上方 algolia 段的说明，站点改用本地搜索）
+# plugins:
+#   - hexo-algoliasearch
 
 # 小冰分类磁贴
+# 2026-11-23：分类换成本站自己的四个方向；name 必须和文章 front-matter 里的 categories 完全一致，
+# 否则磁贴会退化成跳 /categories/ 的总览页。
 magnet:
   enable: true
   priority: 2
   enable_page: /
   type: categories
-  devide: 3
+  devide: 2
   display:
-    - name: 算法
-      display_name: 算法学习笔记
-      icon: 🍡
-    - name: 计算机基础
-      display_name: 计算机基础笔记
-      icon: 🍼
-    - name: 魔改教程
-      display_name: 博客魔改教程
-      icon: 🍉
-    - name: Java基础
-      display_name: Java基础笔记
-      icon: 🍟
-    - name: 数据库
-      display_name: 数据库笔记
-      icon: 🍨
-    # - name: 演示
-    #   display_name: 案例演示笔记
-    #   icon: 🍥
-    - name: 嵌入式知识点总结
-      display_name: 嵌入式知识总结
-      icon: 🧀
+    - name: 折腾记录
+      display_name: 建站与工具折腾
+      icon: 🛠️
+    - name: 生活随记
+      display_name: 生活碎碎念
+      icon: 🍭
+    # 下面两个方向暂时还没有文章，先注释掉：Hexo 只给「已用过的分类」生成页面，
+    # 磁贴指向不存在的分类会退化成跳 /categories/ 总览。等写了第一篇再取消注释。
+    # - name: CTF
+    #   display_name: CTF 题解与复现
+    #   icon: 🚩
+    # - name: 学习笔记
+    #   display_name: 计算机基础与学习笔记
+    #   icon: 📚
   color_setting:
     text_color: black # 文字默认颜色
     text_hover_color: white # 文字鼠标悬浮颜色

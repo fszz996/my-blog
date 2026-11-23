@@ -6,21 +6,20 @@ menu:
   首页: / || icon-home || faa-tada
   文章 || icon--article || faa-tada || hide:
     归档: /archives/ || icon-guidang1 || faa-tada
-    文章统计: /tags/ || icon-shujutongji1 || faa-tada
+    分类: /categories/ || icon-fenlei || faa-tada
+    标签: /tags/ || icon-biaoqian || faa-tada
     随便逛逛: javascript:randomPost(); || icon-zuji1 || faa-tada
-  八宝箱 || icon-xiangzi || faa-tada || hide:
-    八音盒: /life/music/ || icon-yinle || faa-tada
+  收藏 || icon-xiangzi || faa-tada || hide:
     画廊: /box/gallery/ || icon-tubiaozhizuomoban || faa-tada
-    天文馆: /box/astronomy/ || icon-wangyuanjing || faa-tada
     网址导航: /box/nav/ || icon-zhifengche || faa-tada
-  社交 || icon-shejiaoxinxi || faa-tada || hide:
-    朋友圈: /social/fcircle/ || icon-pengyouquan || faa-tada
+    八音盒: /life/music/ || icon-yinle || faa-tada
+    天文馆: /box/astronomy/ || icon-wangyuanjing || faa-tada
+  关于 || icon-paperplane || faa-tada || hide:
+    关于我: /personal/about/ || icon-paperplane || faa-tada
     留言板: /comments/ || icon-liuyan || faa-tada
     友人帐: /social/link/ || icon-lianjie || faa-tada
-  网站 || icon-wangye || faa-tada || hide:
     网站统计: /site/census/ || icon--tongjibiao || faa-tada
     旧时光: /site/time/ || icon-xianxingshalou || faa-tada
-    关于: /personal/about/ || icon-paperplane || faa-tada
 
 # Code Blocks (代碼相關)
 # --------------------------------------
@@ -45,11 +44,11 @@ copy:
 #   icon: link || the description
 social:
   # 格式： 名称: 链接 || 图标类名 || 动画类名
-  Github: https://github.com/yourname || icon-github || faa-tada
-  B站: https://space.bilibili.com/12345678 || icon-bilibili || faa-tada
-  邮箱: mailto:you@example.com || icon-youxiang || faa-tada
+  Github: https://github.com/fszz996 || icon-github || faa-tada
+  B站: https://space.bilibili.com/417430774 || icon-bilibili || faa-tada
+  邮箱: mailto:2829778303@qq.com || icon-youxiang || faa-tada
+  RSS: /atom.xml || icon-RSS || faa-tada
   # 微信: /assets/wechat-qr.webp || icon-weixin || faa-tada
-  # RSS: /atom.xml || icon-RSS || faa-tada
 
   # 用 iconfont 图标的写法：
   # iconfont icon-github: https://github.com/yourname || Github
@@ -68,7 +67,7 @@ social:
 
 # Algolia search
 algolia_search:
-  enable: true
+  enable: false # 2026-11-22 关闭：未配置 Algolia 密钥，改用本地搜索
   hits:
     per_page: 5
   labels:
@@ -78,8 +77,8 @@ algolia_search:
 
 # Local search
 local_search:
-  enable: false
-  preload: true
+  enable: true # 2026-11-22 开启本地搜索（零后端）
+  preload: false
   CDN:
 
 # Math (數學)
@@ -108,7 +107,7 @@ favicon:
 
 # Avatar (頭像)
 avatar:
-  img: /assets/avatar.webp
+  img: /assets/avatar.jpg
   effect: false
 
 # Disable all banner image
@@ -542,7 +541,7 @@ comments:
   # Up to two comments system, the first will be shown as default
   # Choose: Disqus/Disqusjs/Livere/Gitalk/Valine/Waline/Utterances/Facebook Comments/Twikoo/Giscus/Remark42
   use:
-    - Twikoo # Valine,Disqus,...
+    # - Twikoo # Valine,Disqus,...（2026-11-22 暂关：未部署评论服务端；配好 twikoo.envId 后去掉行首 # 即可）
   text: true # Display the comment name next to the button
   # lazyload: The comment system will be load when comment element enters the browser's viewport.
   # If you set it to true, the comment count will be invalid
@@ -697,7 +696,7 @@ crisp:
 footer:
   owner:
     enable: true
-    since: 2022
+    since: 2026
   custom_text:
   copyright: false # Copyright of theme and framework
 
@@ -926,8 +925,7 @@ subtitle:
   source: false
   # 如果關閉打字效果，subtitle 只會顯示 sub 的第一行文字
   sub:
-    - "Welcome to DemoのTiny Home!🤣🤣🤣"
-    - "Hope you have a nice day!🍭🍭🍭"
+    - "喵喵喵"
 
 # Loading Animation (加載動畫)
 # preloader: false
@@ -957,14 +955,14 @@ aside:
       enable: true
       icon: # fab fa-github
       text: Github主页
-      link: https://github.com/yourname
+      link: https://github.com/fszz996
   card_announcement:
     enable: true
     content: |
       <div class="anno2">
         <div class="a-sect">
-          <div class="a-row a-flat"><span class="a-lb">关于这个模板</span></div>
-          <p style="margin:.4em 0 0">这是一个演示站点：把 <code>_config.yml</code> 与 <code>_config.fomalhaut.yml</code> 里的站点名、域名、头像、友链换成你自己的，再写几篇文章，就能搭起自己的小站。</p>
+          <div class="a-row a-flat"><span class="a-lb">公告</span></div>
+          <p style="margin:.4em 0 0">小站刚开张，正在努力填坑中，欢迎常来逛逛！🍭</p>
         </div>
         <div class="a-sect">
           <div class="a-row a-flat"><span class="a-lb">常用入口</span></div>
@@ -1019,7 +1017,7 @@ busuanzi:
 # Formal: Month/Day/Year Time or Year/Month/Day Time
 runtimeshow:
   enable: false
-  publish_date: 8/9/2022 00:00:00
+  publish_date: 11/22/2026 00:00:00 # 2026-11-22 建站
 
 # Aside widget - Newest Comments
 newest_comments:
@@ -1207,7 +1205,7 @@ inject:
     - <style id="transPercent"></style> # 透明度调节
     - <style id="bgFilterParam"></style> # 背景滤镜
     - <span id="fps" aria-hidden="true"></span> # 帧率检测（纯装饰，读屏不播报）
-    - <style id="defineBg">:root{--default-bg:url(https://picsum.photos/id/1015/1920/1080);--darkmode-bg:url(https://picsum.photos/id/1044/1920/1080);--mobileday-bg:url(https://picsum.photos/id/1018/1920/1080);--mobilenight-bg:url(https://picsum.photos/id/1039/1920/1080);}</style> # 默认背景（内联兜底：即使 fomal.js 未执行，首屏也有背景图；运行时会被 fomal.js 覆盖）
+    - <style id="defineBg">:root{--default-bg:url(/assets/gallery/soft-mesh-light.jpg);--darkmode-bg:url(/assets/gallery/deep-blue.jpg);--mobileday-bg:url(/assets/gallery/mint-fog.jpg);--mobilenight-bg:url(/assets/gallery/starfield.jpg);}</style> # 默认背景（内联兜底：即使 fomal.js 未执行，首屏也有背景图；运行时会被 fomal.js 覆盖）。2026-11-23 换成站点自己生成的壁纸，不再外链 picsum
     # 注意：夜间那张的地址必须与 source/js/modules/settings.js 的 resetBg_() 逐字一致 ——
     # 运行时覆盖前浏览器已按这里的值下过一份，URL 不一致就会同一张图下两份。
     - <style id="menu_shadow"></style> # 菜单发光样式
@@ -1247,22 +1245,17 @@ inject:
     # （配置备份 bak/20261009-timeline-archive/before/_config.fomalhaut.yml）。
     - <link rel="stylesheet" href="/css/timeline-archive.css?v=20261011d">
     - <script defer src="/js/timeline-archive.js?v=20261011b"></script>
-    # ── 关于页改版（站点独立样式 + 脚本，不改主题源码）──────────────────────────
+    # ── 关于页样式（站点独立样式，不改主题源码）──────────────────────────────
     # source/css/about-page.css：/personal/about/ 专用外观，全部选择器以 .ab2 开头；
-    #   含 Hero、6 张线路卡、实测参数对照表、技术栈六层分层、个人档案卡 + 昵称由来列表。
+    #   2026-11-23 页面已从「六线部署演示」改写为个人介绍，现在实际用到的是
+    #   Hero、个人档案卡、技术栈三层列表、KV 表与落款；线路卡 / 对照表 / 实测徽标那几段
+    #   样式仍留在文件里（未删），页面不再输出对应 DOM，所以不会显示。
     #   配色由 --theme-color / --font-color / --card-bg 派生，深色模式只覆盖 .ab2 上的变量。
-    # source/js/inject/about-route-probe.js：给每张线路卡挂「实时延迟」徽标（可点击重测），
-    #   页面静置 5 分钟静默复测一轮；找不到 .ab2 线路卡时整段直接 return，别的页面零开销。
-    # 改这两个文件记得把 ?v= 一起提版本。回滚：删掉下面两行即可
-    # （页面源码备份 bak/2026-10-04-about-redesign/before/index.md）。
-    - <link rel="stylesheet" href="/css/about-page.css?v=20261006">
-    # ── 公告栏线路延时徽标（站点独立脚本，不改主题源码）────────────────────────
-    # source/js/inject/ping-route-boot.js 放可调参数；ping-route.js 在每条线路胶囊后
-    # 插一个 <span class="a-ms">，显示「本机 → 该线路」一次网络往返（如 82ms）。
-    # 全部在 window.load 之后错开探测，不进首屏关键路径；样式在 site-inject.css 的 annoV2 块。
-    # 回滚：删掉下面这两行即可（不需要清 public/）。
-    - <script src="/js/inject/ping-route-boot.js"></script> # 延时探测参数（必须在 ping-route.js 之前执行）
-    - <script src="/js/inject/ping-route.js"></script> # 公告栏线路延时徽标
+    # 改这个文件记得把 ?v= 一起提版本。
+    - <link rel="stylesheet" href="/css/about-page.css?v=20261123">
+    # 2026-11-23 移除 ping-route / ping-route-boot：公告栏已改成个人公告，不再有「线路胶囊」，
+    # 这段脚本会把公告里的「Hexo 文档 / 主题仓库」两个外链当成线路去 ping，纯属误报，故删除。
+    # 文件仍留在 source/js/inject/ 下（未删），想恢复逻辑时把上面两行 inject 加回来即可。
     - <script src="/js/inject/beauty-boot.js?v=20261015-solid3"></script> # 美化模块首屏预置（原内联 beautyBoot）
     - <script src="/js/inject/right-menu-state-boot.js"></script> # 侧栏「右键模式」按钮状态同步
     # ── 全站日间 / 夜间首屏预置（站点独立脚本，不改主题源码）────────────────────
@@ -1370,7 +1363,8 @@ inject:
     - <script src="/js/inject/webinfo-card.js"></script> # 小站资讯卡：KPI 数字滚动 + 运行天数
     - <script src="/js/inject/ft-ad-extra.js"></script> # 页脚友链补一个「广告位招租」
     - <script src="/js/inject/pc-local-link.js"></script> # 版权卡「文章链接」显示当前域名
-    - <script defer src="/js/inject/about-route-probe.js?v=20261006"></script> # 关于页线路卡「实时延迟」徽标（.ab2 作用域）
+    # 2026-11-23 移除 about-route-probe.js：关于页已重写为个人介绍，不再有 .ab2 线路卡，
+    # 脚本每次都会在 collect() 处空跑 return。文件保留，需要时再加回本行。
 
     # 公告栏 meta 数据条的填充脚本（数字来自侧栏「小站资讯」卡，卡不在或还没渲染就保持 —）
     - |
@@ -1562,7 +1556,7 @@ lantern:
 # 注意：本文件已被 git 跟踪，Key 写在这里会进仓库 —— 建议把 Key 单独放到
 #       站点根目录的 .ai-chat-key（已加进 .gitignore），下面 api_key 留空即可。
 ai_chat:
-  enable: true                 # 总开关：false 则不注入按钮和面板
+  enable: false                # 总开关：false 则不注入按钮和面板（2026-11-22 暂关：未配 API Key，配好后改回 true）
   api_base: https://api.deepseek.com
   api_key: ''                  # 直接写 Key（不推荐，会进 git）
   api_key_file: .ai-chat-key   # 或从文件读；相对站点根目录

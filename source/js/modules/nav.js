@@ -55,7 +55,8 @@ function tonav() {
     position = scroll;
   });
   //修复没有弄右键菜单的童鞋无法回顶部的问题
-  pageName.innerText = document.title.split(" | Demo")[0];
+  // 标题格式是「页面名 | 站点名」，这里只取第一段；不再依赖写死的站点名（改站名不用再改这里）
+  pageName.innerText = document.title.split(" | ")[0];
 }
 
 function scrollToTop() {
@@ -201,10 +202,11 @@ function randomPost() {
 function share_() {
   let url = window.location.origin + window.location.pathname
   try {
-    // 截取标题
+    // 截取标题：去掉末尾的「 | 站点名」，站点名换掉也不用改这里
     var title = document.title;
-    var subTitle = title.endsWith("| Demo") ? title.substring(0, title.length - 7) : title;
-    navigator.clipboard.writeText('Demo的站内分享\n标题：' + subTitle + '\n链接：' + url + '\n欢迎来访！🍭🍭🍭');
+    var bar = title.lastIndexOf(" | ");
+    var subTitle = bar > 0 ? title.substring(0, bar) : title;
+    navigator.clipboard.writeText('来自 brush 小站的分享\n标题：' + subTitle + '\n链接：' + url + '\n欢迎来访！🍭🍭🍭');
     fomalNotify({
           title: "成功复制分享信息🎉",
           message: "您现在可以通过粘贴直接跟小伙伴分享了！",

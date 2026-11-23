@@ -1,121 +1,116 @@
 ---
-title: 网站统计
-date: 2022-09-15 21:30:00
+title: 站点数据
+date: 2026-11-22 20:20:00
 comments: false
-description: 网站访客统计看板：51LA 实时访客数据、GitHub 贡献日历，以及百度统计的访客地域分布、访问趋势与来源构成。
+description: 本站的访问量与运行天数；51LA、百度统计与 GitHub 贡献日历尚未接通，页尾写了接入方法。
 ---
 
-<script defer data-pjax src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
-<script defer data-pjax src="https://npm.elemecdn.com/echarts@4.9.0/map/js/china.js"></script>
-<script defer data-pjax src="/js/census.js"></script>
-<link rel="stylesheet" href="/css/census.css?v=20261004">
+<link rel="stylesheet" href="/css/census.css?v=20261123">
 
 <div class="census">
 <section class="census-sec">
 <div class="census-sec__head">
 <span class="census-sec__icon">📈</span>
 <div class="census-sec__text">
-<div class="census-sec__title">网站访客统计</div>
-<div class="census-sec__desc"><i class="census-live"></i>51LA 实时数据 · <span id="census-updated">读取中…</span></div>
+<div class="census-sec__title">访问量</div>
+<div class="census-sec__desc">由不蒜子统计，无需登录、没有后端</div>
 </div>
-<a class="census-sec__link" href="https://v6.51.la/" target="_blank" rel="noopener">51LA<i>↗</i></a>
+<a class="census-sec__link" href="https://busuanzi.ibruce.info/" target="_blank" rel="noopener">不蒜子<i>↗</i></a>
 </div>
-<div id="statistic" class="census-kpis" data-state="loading">
+<div id="statistic" class="census-kpis">
 <div class="content">
-<div class="census-kpi"><span class="census-kpi__icon">🔢</span><span class="census-kpi__label">总访问量</span><span class="census-kpi__num" data-census-field="6">--</span></div>
-<div class="census-kpi"><span class="census-kpi__icon">🗓</span><span class="census-kpi__label">本月访问</span><span class="census-kpi__num" data-census-field="5">--</span></div>
-<div class="census-kpi"><span class="census-kpi__icon">👥</span><span class="census-kpi__label">今日人数</span><span class="census-kpi__num" data-census-field="1">--</span></div>
-<div class="census-kpi"><span class="census-kpi__icon">👣</span><span class="census-kpi__label">今日访问</span><span class="census-kpi__num" data-census-field="2">--</span></div>
-<div class="census-kpi"><span class="census-kpi__icon">🧍</span><span class="census-kpi__label">昨日人数</span><span class="census-kpi__num" data-census-field="3">--</span></div>
-<div class="census-kpi"><span class="census-kpi__icon">🕘</span><span class="census-kpi__label">昨日访问</span><span class="census-kpi__num" data-census-field="4">--</span></div>
+<div class="census-kpi"><span class="census-kpi__icon">👣</span><span class="census-kpi__label">总访问量</span><span class="census-kpi__num" data-bz="site_pv">--</span></div>
+<div class="census-kpi"><span class="census-kpi__icon">🧍</span><span class="census-kpi__label">访客数</span><span class="census-kpi__num" data-bz="site_uv">--</span></div>
+<div class="census-kpi"><span class="census-kpi__icon">📄</span><span class="census-kpi__label">本页访问</span><span class="census-kpi__num" data-bz="page_pv">--</span></div>
 </div>
 </div>
 </section>
+
 <section class="census-sec">
 <div class="census-sec__head">
-<span class="census-sec__icon">📊</span>
+<span class="census-sec__icon">🗓</span>
 <div class="census-sec__text">
-<div class="census-sec__title">Github 贡献日历</div>
-<div class="census-sec__desc">近一年的提交活跃度</div>
-</div>
-</div>
-<div class="census-card census-card--git">
-<div id="gitZone"></div>
-</div>
-</section>
-<section class="census-sec">
-<div class="census-sec__head">
-<span class="census-sec__icon">🌏</span>
-<div class="census-sec__text">
-<div class="census-sec__title">访客地域分布</div>
-<div class="census-sec__desc">按省份统计，颜色越深代表访问次数越多</div>
+<div class="census-sec__title">运行时长</div>
+<div class="census-sec__desc">从建站那天算起</div>
 </div>
 </div>
 <div class="census-card">
-<div id="map-chart" class="census-chart census-chart--map"></div>
+<div class="stat-days">
+<div class="stat-days__num"><span id="site-days">--</span><em>天</em></div>
+<div class="stat-days__meta">2026 年 11 月 22 日 上线 · 记录 CTF 与学习过程</div>
+</div>
 </div>
 </section>
+
 <section class="census-sec">
 <div class="census-sec__head">
-<span class="census-sec__icon">📅</span>
+<span class="census-sec__icon">🧩</span>
 <div class="census-sec__text">
-<div class="census-sec__title">访客访问趋势</div>
-<div class="census-sec__desc">按月汇总，虚线为历史平均值</div>
+<div class="census-sec__title">还没接通的数据</div>
+<div class="census-sec__desc">需要自己去申请，配好后按下面几行改就能出现在这页</div>
 </div>
 </div>
 <div class="census-card">
-<div id="trends-chart" class="census-chart census-chart--trends"></div>
+<ol class="stat-todo">
+<li><b>百度统计</b>（地域分布 / 访问趋势 / 来源构成）：注册后拿 <code>access_token</code> 与 <code>site_id</code>，填进 <code>source/js/census.js</code> 顶部，再把 <code>dataUrl</code> 指向自己的代理接口；本页目前没有引入这个脚本，接通后把 <code>&lt;script src="/js/census.js"&gt;</code> 与对应的图表容器加回来。</li>
+<li><b>51LA</b>（实时访客）：注册后把 <code>YOUR_51LA_ID</code> 换成自己的 ID；脚本原本内联在本页，已随改版一并移除，需要时按 51LA 后台给的 <code>quote.js</code> 地址重新贴一段。</li>
+<li><b>GitHub 贡献日历</b>：需要自建 gitcalendar 数据仓库，配好后把 <code>_config.yml</code> 里 <code>gitcalendar.enable</code> 改回 <code>true</code>。</li>
+</ol>
+<div class="stat-tip">这几项都是「可选的增强」，不配也不影响站点正常访问；当前的访问量已经由不蒜子在全站统计。</div>
 </div>
 </section>
-<section class="census-sec">
-<div class="census-sec__head">
-<span class="census-sec__icon">🎨</span>
-<div class="census-sec__text">
-<div class="census-sec__title">访客来源构成</div>
-<div class="census-sec__desc">按来源渠道拆分，扇形面积代表占比</div>
-</div>
-</div>
-<div class="census-card">
-<div id="sources-chart" class="census-chart census-chart--sources"></div>
-</div>
-</section>
+
 <div class="census-note">
-<span>📈 访客数据：<a href="https://v6.51.la/" target="_blank" rel="noopener">51LA</a></span>
-<span>🌏 地域 / 趋势 / 来源：<a href="https://tongji.baidu.com/" target="_blank" rel="noopener">百度统计</a></span>
-<span>📊 贡献日历：<a href="https://github.com/yourname" target="_blank" rel="noopener">GitHub</a></span>
+<span>📈 访问量：<a href="https://busuanzi.ibruce.info/" target="_blank" rel="noopener">不蒜子</a></span>
+<span>🛠 本站：Hexo + Fomalhaut</span>
 </div>
 </div>
 
+<style>
+.stat-days{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:28px 16px;text-align:center}
+.stat-days__num{font-size:44px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums;color:var(--theme-color)}
+.stat-days__num em{font-size:15px;font-weight:500;font-style:normal;margin-left:6px;opacity:.6;color:var(--font-color)}
+.stat-days__meta{font-size:12.5px;opacity:.6;color:var(--font-color)}
+.stat-todo{margin:0;padding:18px 22px 8px 40px;font-size:13.5px;line-height:1.9;color:var(--font-color)}
+.stat-todo li{margin-bottom:6px}
+.stat-todo code{font-size:12.5px;padding:1px 5px;border-radius:5px;background:rgba(128,128,128,.14)}
+.stat-tip{margin:0 18px 18px;font-size:12.5px;opacity:.6;color:var(--font-color)}
+</style>
+
 <script>
 (function () {
-  var statistic = document.getElementById('statistic')
-  if (!statistic) return
-  var updated = document.getElementById('census-updated')
-  // 字段编号沿用 51la quote.js 的顺序：0最近活跃访客 1今日人数 2今日访问 3昨日人数 4昨日访问 5本月访问 6总访问量
-  var FIELDS = [1, 2, 3, 4, 5, 6]
-  // 千分位：quote.js 只是被当纯文本抓回来，它自带的格式化函数不会执行，所以这里补一个
-  var fmt = function (v) {
-    return String(v == null || v === '' ? '--' : v).replace(/\d{1,3}(?=(\d{3})+$)/g, function (m) { return m + ',' })
+  var start = new Date(2026, 10, 22) // 2026-11-22 建站
+  var days = Math.floor((Date.now() - start.getTime()) / 86400000)
+  var el = document.getElementById('site-days')
+  if (el && isFinite(days) && days >= 0) el.textContent = days
+})()
+
+// 不蒜子只认 id，而且全站侧栏「小站资讯」卡里已经有同 id 的节点；
+// 这里给 KPI 换成 data-bz，再把不蒜子写好的数字同步过来（谁先渲染都不影响）。
+;(function () {
+  var map = { site_pv: 'busuanzi_value_site_pv', site_uv: 'busuanzi_value_site_uv', page_pv: 'busuanzi_value_page_pv' }
+  var deadline = Date.now() + 20000
+  function pick(id) {
+    var els = document.querySelectorAll('#' + id)
+    for (var i = 0; i < els.length; i++) {
+      var v = (els[i].textContent || '').trim()
+      if (v && v !== '--' && v !== '—') return v
+    }
+    return ''
   }
-  var pad = function (n) { return (n < 10 ? '0' : '') + n }
-  fetch('https://v6-widget.51.la/v6/YOUR_51LA_ID/quote.js?theme=#28D2C1,#333333,#484545,#D03E3E,#F4F8F7,#28D2C1,14&col=true&f=14&badge=icon_0&icon=center')
-    .then(function (res) { return res.text() })
-    .then(function (data) {
-      var num = data.match(/(?<=<\/span><span>).*?(?=<\/span><\/p>)/g) || []
-      FIELDS.forEach(function (i) {
-        var el = statistic.querySelector('[data-census-field="' + i + '"]')
-        if (el) el.textContent = fmt(num[i])
-      })
-      statistic.setAttribute('data-state', 'ready')
-      if (updated) {
-        var d = new Date()
-        updated.textContent = pad(d.getHours()) + ':' + pad(d.getMinutes()) + ' 更新'
-      }
-    })
-    .catch(function (error) {
-      console.log('51la:', error)
-      statistic.setAttribute('data-state', 'error')
-      if (updated) updated.textContent = '统计数据暂时拿不到，稍后刷新试试'
-    })
+  function sync() {
+    var done = true
+    for (var k in map) {
+      if (!Object.prototype.hasOwnProperty.call(map, k)) continue
+      var mine = document.querySelector('[data-bz="' + k + '"]')
+      if (!mine || (mine.textContent || '').trim() !== '--') continue
+      var v = pick(map[k])
+      if (v) mine.textContent = v
+      else done = false
+    }
+    if (done || Date.now() > deadline) clearInterval(timer)
+  }
+  var timer = setInterval(sync, 700)
+  sync()
 })()
 </script>

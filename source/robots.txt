@@ -2,5 +2,6 @@
 User-agent: *
 Allow: /
 
+# TODO(brush)：域名定下来后把下面两行的 example.com 换成自己的域名（与 _config.yml 的 url 一致）
 Sitemap: https://example.com/sitemap.xml
 Sitemap: https://example.com/baidusitemap.xml

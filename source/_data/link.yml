@@ -1,34 +1,19 @@
-# 友人帐数据源：source/social/link/index.md 里的 {% flink %} 标签会读取本文件
-# 想加友链：在下面某个分组的 link_list 里追加一项即可
+# 友人帐数据源：source/social/link/index.md 里的 {% flink %} 标签（volantis 样式）会读取本文件
+# 想加友链：在某个分组的 link_list 里追加一项即可
+#   name / link / avatar / descr 必填；siteshot 可选，不填会由 thum.io 自动抓一张站点截图
+# 头像用本站自带的占位图（source/assets/friends/），换成朋友的真头像时直接改 avatar 路径
 - class_name: 推荐站点🍔
-  class_desc: 这里放最熟悉的小伙伴或者赞助商，当然是最前排啦
+  class_desc: 建站路上绕不开的几个项目，算是本站的「上游」
   link_list:
     - name: Hexo
       link: https://hexo.io/zh-cn/
-      avatar: https://picsum.photos/id/1039/200/200
+      avatar: /assets/friends/hexo.png
       descr: 快速、简洁且高效的博客框架
-      siteshot: https://picsum.photos/id/1036/800/450
     - name: Butterfly
       link: https://butterfly.js.org/
-      avatar: https://picsum.photos/id/1036/200/200
-      descr: Fomalhaut 主题的上游项目
-      siteshot: https://picsum.photos/id/1039/800/450
-
-- class_name: 小伙伴们🍭
-  class_desc: 交换友链请在友人帐页面留言
-  link_list:
-    - name: 示例站点 A
-      link: https://example.com/
-      avatar: https://picsum.photos/id/1018/200/200
-      descr: 这是一个示例友链，请替换成你自己的朋友
-      siteshot: https://picsum.photos/id/1041/800/450
-    - name: 示例站点 B
-      link: https://example.org/
-      avatar: https://picsum.photos/id/1036/200/200
-      descr: 这是一个示例友链，请替换成你自己的朋友
-      siteshot: https://picsum.photos/id/1039/800/450
-    - name: 示例站点 C
-      link: https://example.net/
-      avatar: https://picsum.photos/id/1039/200/200
-      descr: 这是一个示例友链，请替换成你自己的朋友
-      siteshot: https://picsum.photos/id/1036/800/450
+      avatar: /assets/friends/butterfly.png
+      descr: Fomalhaut 主题的上游项目，文档很全
+    - name: 不蒜子
+      link: https://busuanzi.ibruce.info/
+      avatar: /assets/friends/frontier.png
+      descr: 一行脚本搞定站点访问量统计

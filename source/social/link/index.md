@@ -1,6 +1,6 @@
 ---
 title: 友人帐
-date: 2022-08-10 15:39:15
+date: 2026-11-22 20:10:00
 type: "link"
 ---
 
@@ -234,27 +234,25 @@ type: "link"
 
 
 
-## 本站友链添加方式：
+## 本站信息
 {% tabs link %}
 <!-- tab 🙋 butterfly-💭candy -->
 ```yml
-    - name: Demo
+    - name: brush 的小站
       link: https://example.com/
-      avatar: https://picsum.photos/id/1016/1200/675
-      descr: Future is now 🍭🍭🍭
-      siteshot: https://picsum.photos/id/1039/800/450
+      avatar: https://example.com/assets/avatar.jpg
+      descr: 记录 CTF 与学习过程
 ```
 <!-- endtab -->
 
 <!-- tab 🥗Volantis -->
 ```JSON
 {
-  "title": "Demo",
-  "screenshot": "https://picsum.photos/id/1039/800/450",
+  "title": "brush 的小站",
   "url": "https://example.com/",
-  "avatar": "https://picsum.photos/id/1016/1200/675",
-  "description": "Future is now 🍭🍭🍭",
-  "keywords": "Demo"
+  "avatar": "https://example.com/assets/avatar.jpg",
+  "description": "记录 CTF 与学习过程",
+  "keywords": "brush,CTF,网络安全,学习笔记"
 }
 ```
 <!-- endtab -->
@@ -263,15 +261,18 @@ type: "link"
 
 | 名称       | 数值                                                         |
 | ---------- | ------------------------------------------------------------ |
-| 站点名称   | Demo                                                   |
-| 站点截图   | https://picsum.photos/id/1039/800/450 |
-| 站点链接   | https://example.com/                                        |
-| 站长头像   | https://picsum.photos/id/1016/1200/675                         |
-| 站点描述   | Future is now🍭🍭🍭                         |
-| 站点关键词 | Demo,个人博客,代码                                     |
+| 站点名称   | brush 的小站                                                 |
+| 站点链接   | https://example.com/                                         |
+| 站长头像   | https://example.com/assets/avatar.jpg                        |
+| 站点描述   | 记录 CTF 与学习过程                                          |
+| 站点关键词 | brush,CTF,网络安全,学习笔记                                  |
 
 <!-- endtab -->
 {% endtabs %}
+
+{% note info flat %}
+域名还在挑，上面的 `example.com` 是占位地址；定下来后会把这几处链接和头像地址一起替换掉。
+{% endnote %}
 
 
 ## 加入本站友链方式
@@ -294,12 +295,11 @@ https://image.thum.io/get/allowJPG/wait/20/width/600/crop/950/https://<你的域
 ```
 
 {% note primary flat %}
-🎉本站支持交换友链，在您提出申请之前，请将本站添加至友链
-🥗为了保障本站用户，本站仅支持个人网站的友链申请
-🍧申请本站友链需要拥有独立域名（非免费域名），建议开启全站HTTPS
-🥫如果友情链接已经添加，请保持网站的正常访问，会定期清理僵尸网站
-🍖网站有一定的实质性内容和主题，不能是空壳网站和练手网站
-💕感谢您对本站的支持，如果您已经满足上述要求，请在下方表单提交友链申请~~~
+🎉 本站接受交换友链，申请前请先把本站加到你的友链里
+🥗 本站只是个人小站，优先和同样在记录学习、技术、生活的小站交换
+🍧 链接请保持可访问；长期打不开或者换了主题只剩空壳的，我会悄悄摘掉
+🍖 内容不限技术，但希望是「真的在写」的地方，不是纯采集站
+💕 本站刚开张，这条规则以后大概率会更宽松，先谢过每一个愿意互链的朋友
 {% endnote %}
 
 <div class="addBtn"><button onclick="leonus.linkCom()"><i class="fa-solid fa-circle-plus"></i>快速申请 (默认样式)</button> <button onclick="leonus.linkCom(&quot;bf&quot;)"><i class="fa-solid fa-circle-plus"></i>快速申请 (Butterfly)</button></div>

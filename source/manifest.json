@@ -1,8 +1,8 @@
 {
-  "name": "Demo",
-  "short_name": "Demo",
-  "theme_color": "var(--theme-color)",
-  "background_color": "var(--theme-color)",
+  "name": "brush 的小站",
+  "short_name": "brush",
+  "theme_color": "#39c5bb",
+  "background_color": "#ffffff",
   "display": "standalone",
   "scope": "/",
   "start_url": "/",
