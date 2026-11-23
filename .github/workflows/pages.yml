@@ -32,12 +32,14 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
-      # 说明：--ignore-scripts 是必须的。
-      # 依赖里 ttf2woff2 是原生模块，安装时会跑 install 脚本去编译/下载二进制，
-      # 在 GitHub 的 Ubuntu runner 上经常失败；而它只被 gulp 的字体子集化任务用到，
-      # `hexo generate` 这条链（hexo + 渲染器 + 插件）全是纯 JS，不需要任何原生模块。
+      # ① lock 里 1300+ 个包的下载地址是国内的 registry.npmmirror.com（本地装依赖时留下的），
+      #    境外 runner 从它拉包会大面积超时 → 先换回官方 registry（只换主机名，版本与 integrity 不动）
+      # ② --ignore-scripts：依赖里 ttf2woff2 是原生模块，装的时候要编译/下二进制，runner 上常失败；
+      #    它只被 gulp 的字体子集化用到，`hexo generate` 这条链全是纯 JS，不需要原生模块
       - name: 安装依赖
-        run: npm ci --ignore-scripts --no-audit --no-fund
+        run: |
+          node tools/normalize-lock-registry.cjs
+          npm ci --ignore-scripts --no-audit --no-fund --registry=https://registry.npmjs.org --fetch-retries=5 --fetch-timeout=120000
 
       - name: 构建站点
         run: npx hexo clean && npx hexo generate
