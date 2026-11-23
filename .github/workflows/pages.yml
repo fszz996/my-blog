@@ -54,10 +54,12 @@ jobs:
 
       - name: 准备 Pages
         uses: actions/configure-pages@v5
-        with:
-          # 仓库还没开启 Pages 时尝试自动开启（需要在 Settings → Pages 里
-          # 把 Source 选成 GitHub Actions；只开一次，之后一直有效）
-          enablement: true
+        # 注意：仓库必须先启用 Pages，否则这一步会报
+        #   "Get Pages site failed. Error: Not Found" 或 "Create Pages site failed"。
+        # 启用方式（只需一次，网页上点两下）：
+        #   仓库 Settings → Pages → Build and deployment → Source 选「GitHub Actions」→ 保存
+        # 不能用 enablement: true 自动开：GITHUB_TOKEN 没有创建 Pages 站点的权限
+        # （实测报 Resource not accessible by integration）。
 
       - name: 上传产物
         uses: actions/upload-pages-artifact@v3
